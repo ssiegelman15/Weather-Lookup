@@ -1,3 +1,5 @@
+var cityDisplay = $('#cityDisplay');
+var futureDay = $('.futureDay');
 var previousCities = [];
 
 
@@ -17,13 +19,13 @@ function storeCity(citySearch) {
 }
 
 function clearPage() {
-
+  $(futureDay).empty();
 }
 
 function getWeather(city) {
   // Create variables for both current weather & five day Open Weather Map API's
   var todayDate = moment().format("M/DD/YYYY");
-  $("#cityDisplay").text(city + " " + todayDate);
+  cityDisplay.text(city + " " + todayDate);
   var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
   var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
@@ -37,7 +39,7 @@ function getWeather(city) {
     var weatherIcon = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
     var img = $("<img>");
     img.attr("src", weatherIcon);
-    img.appendTo("#cityDisplay");
+    img.appendTo(cityDisplay);
 
     var temp = response.main.temp;
     var wind = response.wind.speed;
@@ -84,14 +86,13 @@ function getWeather(city) {
       dateElement.text(dateElementText);
       var tempElement = $("<li>");
       tempElement.text("Temp: " + response.list[i].main.temp + String.fromCharCode(176) + "F");
-      let windElement = $("<li>");
+      var windElement = $("<li>");
       windElement.text("Wind: " + response.list[i].wind.speed + " MPH");
-      let humidityElement = $("<li>");
+      var humidityElement = $("<li>");
       humidityElement.text("Humidity: " + response.list[i].main.humidity + "%");
-      let iconElement = $("<img>");
-      iconElement.attr("class", "futureIcon");
-      let iconCode = response.list[i].weather[0].icon;
-      let iconImage = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      var iconElement = $("<img>");
+      var iconCode = response.list[i].weather[0].icon;
+      var iconImage = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
       iconElement.attr("src", iconImage);
       $("#" + dateOutlook).append(dateElement);
       $("#" + dateOutlook).append(iconElement);
