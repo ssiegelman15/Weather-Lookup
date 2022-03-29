@@ -60,13 +60,14 @@ function getWeather(city) {
     var latitude = response.coord.lat;
     var longitude = response.coord.lon;
     console.log(longitude, latitude);
-    var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=mintutely,hourly,daily,alerts&cnt=47&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+    var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=mintutely,hourly,alerts&cnt=47&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
     $.ajax({
       url: oneCall,
       method: 'GET'
     }).then(function (oneCallResults) {
       $(uvText).text("UV Index: ");
+      console.log("onecall", oneCallResults);
       $(uvIndex).text(oneCallResults.current.uvi);
       if (oneCallResults.current.uvi <= 2) {
         $(uvIndex).attr("class", "low");
@@ -86,13 +87,13 @@ function getWeather(city) {
     url: fiveDayForecast,
     method: 'GET'
   }).then(function (response) {
-    console.log(response);
+    console.log("five day", response);
 
     // function to ensure 5 day forecast starts at next day noon
     var i = 0;
     //  || moment(response.list[j].dt_txt).format('HH') != 12) unsure if i should get this specific, but this would give temp at noon every day...
     for (j = 0; j <= 8; j++) {
-      if (moment(response.list[j].dt_txt).format('M/D/YYYY') === moment().format('M/D/YYYY')) {
+      if (moment(response.list[j].dt_txt).format('M/D/YYYY') == moment().format('M/D/YYYY')|| moment(response.list[j].dt_txt).format('HH') != 12) {
         continue
       } else {
         i += j;
