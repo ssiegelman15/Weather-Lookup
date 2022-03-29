@@ -1,13 +1,20 @@
 var cityDisplay = $('#cityDisplay');
 var futureDay = $('.futureDay');
+var cityInput = $('#cityInput');
+var uvText = $('#uvText');
+var uvIndex = $('#uvIndex');
+
 var previousCities = [];
 
+function capitalize(word) {
+  return word[0].toUpperCase() + word.slice(1);
+}
 
 function pullWeather(event) {
   // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
   event.preventDefault();
   clearPage();
-  var citySearch = $("#cityInput").val();
+  var citySearch = $(cityInput).val();
   storeCity(citySearch);
   getWeather(citySearch);
 }
@@ -18,16 +25,18 @@ function storeCity(citySearch) {
   localStorage.setItem("History", JSON.stringify(previousCities));
 }
 
+// Clears previous five day forecast results when new search is made
 function clearPage() {
   $(futureDay).empty();
 }
 
 function getWeather(city) {
   // Create variables for both current weather & five day Open Weather Map API's
+  cityText=capitalize(city);
   var todayDate = moment().format("M/DD/YYYY");
-  cityDisplay.text(city + " " + todayDate);
-  var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
-  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  cityDisplay.text(cityText + " " + todayDate);
+  var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${citytext}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
   // Pull data and display today's weather
   $.ajax({
@@ -56,8 +65,8 @@ function getWeather(city) {
       url: oneCall,
       method: 'GET'
     }).then(function (oneCallResults) {
-      $("#uvText").text("UV Index: ");
-      $("#uvIndex").text(oneCallResults.current.uvi);
+      $(uvText).text("UV Index: ");
+      $(uvIndex).text(oneCallResults.current.uvi);
       if (oneCallResults.current.uvi <= 2) {
         $("#uvIndex").attr("class", "low");
       } else if (oneCallResults.current.uvi <= 5) {
