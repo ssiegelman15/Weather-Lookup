@@ -7,7 +7,8 @@ var uvIndex = $('#uvIndex');
 var previousCities = [];
 
 function capitalize(word) {
-  return word[0].toUpperCase() + word.slice(1);
+  // Separate city by spaces and capitalize both words in city name.
+  return word.toUpperCase() + word.slice(1);
 }
 
 function pullWeather(event) {
@@ -15,13 +16,15 @@ function pullWeather(event) {
   event.preventDefault();
   clearPage();
   var citySearch = $(cityInput).val();
-  storeCity(citySearch);
-  getWeather(citySearch);
+  cityText=capitalize(citySearch);
+  finalCityText = cityText.trim();
+  storeCity(finalCityText);
+  getWeather(finalCityText);
 }
 
-function storeCity(citySearch) {
+function storeCity(finalCityText) {
   // Add search result to global histroy var and store search result locally
-  previousCities.push(citySearch);
+  previousCities.push(finalCityText);
   localStorage.setItem("History", JSON.stringify(previousCities));
 }
 
@@ -32,11 +35,10 @@ function clearPage() {
 
 function getWeather(city) {
   // Create variables for both current weather & five day Open Weather Map API's
-  cityText=capitalize(city);
   var todayDate = moment().format("M/DD/YYYY");
   cityDisplay.text(cityText + " " + todayDate);
   var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
-  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${citytext}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${cityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
   // Pull data and display today's weather
   $.ajax({
