@@ -32,8 +32,6 @@ function getWeather(city) {
     url: todayWeather,
     method: 'GET',
   }).then(function (response) {
-    console.log(response);
-
     // Add weather icon to first line of results
     var iconCode = response.weather[0].icon;
     var weatherIcon = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -78,14 +76,28 @@ function getWeather(city) {
     method: 'GET'
   }).then(function (response) {
     console.log(response);
-    var allDays = ["day1","day2","day3","day4","day5"]
-    for (i=0; i<=allDays.length; i++) {
-      var dateOutlook = allDays[i];
+    var allDays = ["day1", "day2", "day3", "day4", "day5"]
+    for (i = 0; i <= allDays.length * 8; i += 8) {
+      var dateOutlook = allDays[i / 8];
       var dateElement = $("<li>");
       var dateElementText = moment(response.list[i].dt_txt).format('M/D/YYYY');
-      console.log(dateElementText);
       dateElement.text(dateElementText);
-      console.log(dateElement);
+      var tempElement = $("<li>");
+      tempElement.text("Temp: " + response.list[i].main.temp + String.fromCharCode(176) + "F");
+      let windElement = $("<li>");
+      windElement.text("Wind: " + response.list[i].wind.speed + " MPH");
+      let humidityElement = $("<li>");
+      humidityElement.text("Humidity: " + response.list[i].main.humidity + "%");
+      let iconElement = $("<img>");
+      iconElement.attr("class", "futureIcon");
+      let iconCode = response.list[i].weather[0].icon;
+      let iconImage = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
+      iconElement.attr("src", iconImage);
+      $("#" + dateOutlook).append(dateElement);
+      $("#" + dateOutlook).append(iconElement);
+      $("#" + dateOutlook).append(tempElement);
+      $("#" + dateOutlook).append(windElement);
+      $("#" + dateOutlook).append(humidityElement);
     }
   })
 
