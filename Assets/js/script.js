@@ -59,7 +59,8 @@ function getWeather(city) {
 
     var latitude = response.coord.lat;
     var longitude = response.coord.lon;
-    var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=mintutely,hourly,daily,alerts&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+    console.log(longitude, latitude);
+    var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=mintutely,hourly,daily,alerts&cnt=47&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
     $.ajax({
       url: oneCall,
@@ -86,9 +87,24 @@ function getWeather(city) {
     method: 'GET'
   }).then(function (response) {
     console.log(response);
+
+    // function to ensure 5 day forecast starts at next day noon
+    var i = 0;
+    //  || moment(response.list[j].dt_txt).format('HH') != 12) unsure if i should get this specific, but this would give temp at noon every day...
+    for (j = 0; j <= 8; j++) {
+      if (moment(response.list[j].dt_txt).format('M/D/YYYY') === moment().format('M/D/YYYY')) {
+        continue
+      } else {
+        i += j;
+        break
+      }
+    } 
+
     var allDays = ["day1", "day2", "day3", "day4", "day5"]
-    for (i = 0; i <= allDays.length * 8; i += 8) {
-      var dateOutlook = allDays[i / 8];
+    // Somehow work logic in to make for loop run exactly five times while potentially having i start at 11
+    for (i; i <= 39; i += 8) {
+      console.log(i);
+      var dateOutlook = allDays[Math.floor(i / 8)];
       var dateElement = $("<li>");
       var dateElementText = moment(response.list[i].dt_txt).format('M/D/YYYY');
       dateElement.text(dateElementText);
@@ -111,5 +127,7 @@ function getWeather(city) {
   })
 
 }
+
+
 
 $(".btn").on("click", pullWeather);
