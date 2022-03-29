@@ -38,6 +38,10 @@ function getWeather(city) {
   var wind = response.wind.speed;
   var humidity = response.main.humidity;
 
+  latitude = response.coord.lat;
+  longitude = response.coord.lon;
+  
+
 })
 }
 

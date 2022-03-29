@@ -19,17 +19,43 @@
 
   <main>
     <div class="row">
-      <div class="col-2.6" id="search-area">
+      <div class="col-3" id="search-area">
         <h1 class="row mt-3 ml-4"><strong>Search for a City:</strong></h1>
         <input class="form-control form-control-lg mt-3 ml-4" id="cityInput" type="text" placeholder="Denver">
         <button type="submit" class="btn btn-primary mt-3 ml-4 w-100">Search</button>
+        <div class="searchHistory"></div>
       </div>
 
-      <div class="col" id="results">
-        <div class="row" id="today-weather">
-
+      <div class="col-9" id="results">
+        <div class="row" id="todayWeather">
+          <h2 class="card-title bolder" id="cityDisplay"></h2>
+          <p class="temp"></p>
+          <p class="wind"></p>
+          <p class="humidity"></p>
+          <div class="uv">
+            <p class="uvText d-inline-block"></p>
+            <p id="uvIndex"></p>
+          </div>
         </div>
-        <div class="row" id="five-day-forecast">
+
+
+        <h3 class="bolder">5 Day Forecast: </h3>
+        <div class="card-deck">
+          <div class="card col fiveDayCard">
+            <ul id="day1"></ul>
+          </div>
+          <div class="card col fiveDayCard">
+            <ul id="day2"></ul>
+          </div>
+          <div class="card col fiveDayCard">
+            <ul id="day3"></ul>
+          </div>
+          <div class="card col fiveDayCard">
+            <ul id="day4"></ul>
+          </div>
+          <div class="card col fiveDayCard">
+            <ul id="day5"></ul>
+          </div>
 
         </div>
 
