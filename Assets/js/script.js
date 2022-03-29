@@ -68,13 +68,13 @@ function getWeather(city) {
       $(uvText).text("UV Index: ");
       $(uvIndex).text(oneCallResults.current.uvi);
       if (oneCallResults.current.uvi <= 2) {
-        $("#uvIndex").attr("class", "low");
+        $(uvIndex).attr("class", "low");
       } else if (oneCallResults.current.uvi <= 5) {
-        $("#uvIndex").attr("class", "moderate");
+        $(uvIndex).attr("class", "moderate");
       } else if (oneCallResults.current.uvi <= 7) {
-        $("#uvIndex").attr("class", "high");
+        $(uvIndex).attr("class", "high");
       } else {
-        $("#uvIndex").attr("class", "veryHigh");
+        $(uvIndex).attr("class", "veryHigh");
       }
     })
 
