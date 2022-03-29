@@ -1,3 +1,4 @@
+// Setting JS variables
 var cityDisplay = $('#cityDisplay');
 var futureDay = $('.futureDay');
 var cityInput = $('#cityInput');
@@ -6,18 +7,12 @@ var uvIndex = $('#uvIndex');
 
 var previousCities = [];
 
-function capitalize(word) {
-  // Separate city by spaces and capitalize both words in city name.
-  return word[0].toUpperCase() + word.slice(1);
-}
-
 function pullWeather(event) {
   // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
   event.preventDefault();
   clearPage();
   var citySearch = $(cityInput).val();
-  cityText=capitalize(citySearch);
-  finalCityText = cityText.trim()
+  finalCityText = citySearch.trim()
   storeCity(finalCityText);
   getWeather(finalCityText);
 }
@@ -35,16 +30,19 @@ function clearPage() {
 
 function getWeather(city) {
   // Create variables for both current weather & five day Open Weather Map API's
-  var todayDate = moment().format("M/DD/YYYY");
-  cityDisplay.text(cityText + " " + todayDate);
-  var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${cityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
-  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${cityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  // var todayDate = moment().format("M/DD/YYYY");
+  // cityDisplay.text(cityText + " " + todayDate);
+  var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${finalCityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${finalCityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
   // Pull data and display today's weather
   $.ajax({
     url: todayWeather,
     method: 'GET',
   }).then(function (response) {
+    var todayDate = moment().format("M/DD/YYYY");
+    cityName = response.name;
+    cityDisplay.text(cityName + " " + todayDate);
     // Add weather icon to first line of results
     var iconCode = response.weather[0].icon;
     var weatherIcon = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -83,11 +81,11 @@ function getWeather(city) {
   })
 
   // Pull data and display five day weather outlook
-
   $.ajax({
     url: fiveDayForecast,
     method: 'GET'
   }).then(function (response) {
+    console.log(response);
     var allDays = ["day1", "day2", "day3", "day4", "day5"]
     for (i = 0; i <= allDays.length * 8; i += 8) {
       var dateOutlook = allDays[i / 8];
