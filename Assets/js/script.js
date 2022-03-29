@@ -10,7 +10,7 @@ function pullWeather (event) {
   getWeather(citySearch);
 }
 
-function storeCity() {
+function storeCity(citySearch) {
   // Add search result to global histroy var and store search result locally
   previousCities.push(citySearch);
   localStorage.setItem("History", JSON.stringify(previousCities));
@@ -24,13 +24,21 @@ function getWeather(city) {
   // Create variables for both current weather & five day Open Weather Map API's
   var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
   var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
-  
+  var latitude;
+  var longitude;
+  var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=mintutely,hourly,daily,alerts&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+
+
   $.ajax({
     url: todayWeather,
     method: 'GET',
 }).then(function (response) {
   console.log(response);
-}
+  var temp = response.main.temp;
+  var wind = response.wind.speed;
+  var humidity = response.main.humidity;
 
+})
+}
 
 $(".btn").on("click", pullWeather);
