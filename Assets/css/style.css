@@ -1,0 +1,35 @@
+.low {
+  background-color: green;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  display: inline;
+}
+
+.moderate {
+  background-color: yellow;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: black;
+  display: inline;
+}
+
+.high {
+  background-color: rgb(255, 115, 0);
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  display: inline;
+}
+
+.veryHigh {
+  background-color: red;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  display: inline;
+}
