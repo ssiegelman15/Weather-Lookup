@@ -8,7 +8,7 @@ var previousCities = [];
 
 function capitalize(word) {
   // Separate city by spaces and capitalize both words in city name.
-  return word.toUpperCase() + word.slice(1);
+  return word[0].toUpperCase() + word.slice(1);
 }
 
 function pullWeather(event) {
@@ -17,7 +17,7 @@ function pullWeather(event) {
   clearPage();
   var citySearch = $(cityInput).val();
   cityText=capitalize(citySearch);
-  finalCityText = cityText.trim();
+  finalCityText = cityText.trim()
   storeCity(finalCityText);
   getWeather(finalCityText);
 }
@@ -88,7 +88,6 @@ function getWeather(city) {
     url: fiveDayForecast,
     method: 'GET'
   }).then(function (response) {
-    console.log(response);
     var allDays = ["day1", "day2", "day3", "day4", "day5"]
     for (i = 0; i <= allDays.length * 8; i += 8) {
       var dateOutlook = allDays[i / 8];
