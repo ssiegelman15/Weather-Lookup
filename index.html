@@ -5,6 +5,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="./Assets/css/style.css" />
   <title>Weather Lookup</title>
@@ -17,11 +18,19 @@
 
   <main>
     <div class="row">
-      <div class="col-2.6 ml-5" id="search-area">
-        <h1 class="row p-2"><strong>Search for a City:</strong></h1>
-        <input class="form-control form-control-lg" type="text" placeholder="Denver">
+      <div class="col-2.6" id="search-area">
+        <h1 class="row mt-3 ml-4"><strong>Search for a City:</strong></h1>
+        <input class="form-control form-control-lg mt-3 ml-4" type="text" placeholder="Denver">
+        <button type="submit" class="btn btn-primary mt-3 ml-4 w-100">Search</button>
       </div>
+
       <div class="col" id="results">
+        <div class="row" id="today-weather">
+
+        </div>
+        <div class="row" id="five-day-forecast">
+          
+        </div>
 
       </div>
     </div>
