@@ -4,6 +4,9 @@ var futureDay = $('.futureDay');
 var cityInput = $('#cityInput');
 var uvText = $('#uvText');
 var uvIndex = $('#uvIndex');
+var tempEl = $('.temp');
+var windEl = $('.wind');
+var humidityEl = $('.humidity');
 
 var previousCities = [];
 
@@ -30,10 +33,8 @@ function clearPage() {
 
 function getWeather(city) {
   // Create variables for both current weather & five day Open Weather Map API's
-  // var todayDate = moment().format("M/DD/YYYY");
-  // cityDisplay.text(cityText + " " + todayDate);
-  var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${finalCityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
-  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${finalCityText}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  var todayWeather = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
+  var fiveDayForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
   // Pull data and display today's weather
   $.ajax({
@@ -53,9 +54,9 @@ function getWeather(city) {
     var temp = response.main.temp;
     var wind = response.wind.speed;
     var humidity = response.main.humidity;
-    $(".temp").text("Temp: " + temp + String.fromCharCode(176) + "F");
-    $(".wind").text("Wind: " + wind + " MPH");
-    $(".humidity").text("Humditiy: " + humidity + "%");
+    tempEl.text("Temp: " + temp + String.fromCharCode(176) + "F");
+    windEl.text("Wind: " + wind + " MPH");
+    humidityEl.text("Humditiy: " + humidity + "%");
 
     var latitude = response.coord.lat;
     var longitude = response.coord.lon;
