@@ -18,12 +18,13 @@ function pullWeather(event) {
   finalCityText = citySearch.trim()
   storeCity(finalCityText);
   getWeather(finalCityText);
+  showHistory();
 }
 
 function storeCity(finalCityText) {
   // Add search result to global histroy var and store search result locally
   previousCities.push(finalCityText);
-  localStorage.setItem("History", JSON.stringify(previousCities));
+  localStorage.setItem("Searches", JSON.stringify(previousCities));
 }
 
 // Clears previous five day forecast results when new search is made
@@ -130,7 +131,15 @@ function getWeather(city) {
 }
 
 // Create buttons based on stored historical searches.
+function showHistory() {
+  if (typeof (localStorage.getItem("Searches") != 'undefined')) {
+    searchHistory = localStorage.getItem("Searches");
+  };
+  for (i=0; i<searchHistory.length; i++) {
+    
+  }
+}
 
 
-
+showHistory();
 $(".btn").on("click", pullWeather);
