@@ -7,15 +7,21 @@ var uvIndex = $('#uvIndex');
 var tempEl = $('.temp');
 var windEl = $('.wind');
 var humidityEl = $('.humidity');
-buttonEl = $('.btn');
+var buttonEl = $('.btn');
+var searchHistory = $('.searchHistory');
 
 var previousCities = [];
 setPrevious();
 
 // Create buttons based on stored historical searches.
 function showHistory() {
+  reverseHistory = previousCities.reverse();
   for (i=0; i<previousCities.length; i++) {
-    
+    var historyBtnEl = $("<button>");
+    historyBtnEl.addClass("btn btn-primary btn-history mt-3 ml-4 w-100");
+    var historyBtnText = reverseHistory[i];
+    historyBtnEl.text(historyBtnText.substr(0,1).toUpperCase()+historyBtnText.substr(1));
+    searchHistory.append(historyBtnEl);
   }
 }
 
@@ -37,7 +43,7 @@ function pullWeather(event) {
   finalCityText = citySearch.trim()
   storeCity(finalCityText);
   getWeather(finalCityText);
-  // showHistory();
+  showHistory();
 }
 
 function storeCity(finalCityText) {
@@ -49,7 +55,8 @@ function storeCity(finalCityText) {
 
 // Clears previous five day forecast results when new search is made
 function clearPage() {
-  $(futureDay).empty();
+  futureDay.empty();
+  searchHistory.empty();
 }
 
 function getWeather(city) {
@@ -87,16 +94,16 @@ function getWeather(city) {
       url: oneCall,
       method: 'GET'
     }).then(function (oneCallResults) {
-      $(uvText).text("UV Index: ");
-      $(uvIndex).text(oneCallResults.current.uvi);
+      uvText.text("UV Index: ");
+      uvIndex.text(oneCallResults.current.uvi);
       if (oneCallResults.current.uvi <= 2) {
-        $(uvIndex).attr("class", "low");
+        uvIndex.attr("class", "low");
       } else if (oneCallResults.current.uvi <= 5) {
-        $(uvIndex).attr("class", "moderate");
+        uvIndex.attr("class", "moderate");
       } else if (oneCallResults.current.uvi <= 7) {
-        $(uvIndex).attr("class", "high");
+        uvIndex.attr("class", "high");
       } else {
-        $(uvIndex).attr("class", "veryHigh");
+        uvIndex.attr("class", "veryHigh");
       }
     })
 
@@ -147,5 +154,5 @@ function getWeather(city) {
 }
 
 
-
+// $('.btn-history').on("click", pullHistoricalWeather);
 buttonEl.on("click", pullWeather);
