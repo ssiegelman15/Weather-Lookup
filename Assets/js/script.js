@@ -94,7 +94,7 @@ function getWeather(city) {
     var i = 0;
     //  || moment(response.list[j].dt_txt).format('HH') != 12) unsure if i should get this specific, but this would give temp at noon every day...
     for (j = 0; j <= 8; j++) {
-      if (moment(response.list[j].dt_txt).format('M/D/YYYY') == moment().format('M/D/YYYY')|| moment(response.list[j].dt_txt).format('HH') != 12) {
+      if (moment(response.list[j].dt_txt).format('M/D/YYYY') == moment().format('M/D/YYYY')) {
         continue
       } else {
         i += j;
@@ -127,8 +127,9 @@ function getWeather(city) {
       $("#" + dateOutlook).append(humidityElement);
     }
   })
-
 }
+
+// Create buttons based on stored historical searches.
 
 
 
