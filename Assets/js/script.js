@@ -7,8 +7,17 @@ var uvIndex = $('#uvIndex');
 var tempEl = $('.temp');
 var windEl = $('.wind');
 var humidityEl = $('.humidity');
+buttonEl = $('.btn');
 
 var previousCities = [];
+setPrevious();
+
+function setPrevious() {
+  retrievedCities = localStorage.getItem("Searches");
+  previousCities = JSON.parse(retrievedCities);
+  console.log("history", previousCities);
+  return previousCities;
+}
 
 function pullWeather(event) {
   // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
@@ -18,12 +27,13 @@ function pullWeather(event) {
   finalCityText = citySearch.trim()
   storeCity(finalCityText);
   getWeather(finalCityText);
-  showHistory();
+  // showHistory();
 }
 
 function storeCity(finalCityText) {
   // Add search result to global histroy var and store search result locally
   previousCities.push(finalCityText);
+  console.log("added", previousCities)
   localStorage.setItem("Searches", JSON.stringify(previousCities));
 }
 
@@ -142,4 +152,4 @@ function getWeather(city) {
 
 
 // showHistory();
-$(".btn").on("click", pullWeather);
+buttonEl.on("click", pullWeather);
