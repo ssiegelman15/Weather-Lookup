@@ -131,15 +131,15 @@ function getWeather(city) {
 }
 
 // Create buttons based on stored historical searches.
-function showHistory() {
-  if (typeof (localStorage.getItem("Searches") != 'undefined')) {
-    searchHistory = localStorage.getItem("Searches");
-  };
-  for (i=0; i<searchHistory.length; i++) {
+// function showHistory() {
+//   if (typeof (localStorage.getItem("Searches") != 'undefined')) {
+//     searchHistory = localStorage.getItem("Searches");
+//   };
+//   for (i=0; i<searchHistory.length; i++) {
     
-  }
-}
+//   }
+// }
 
 
-showHistory();
+// showHistory();
 $(".btn").on("click", pullWeather);
