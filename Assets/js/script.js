@@ -14,9 +14,12 @@ setPrevious();
 
 function setPrevious() {
   retrievedCities = localStorage.getItem("Searches");
-  previousCities = JSON.parse(retrievedCities);
-  console.log("history", previousCities);
-  return previousCities;
+  if (retrievedCities != null) {
+    previousCities = JSON.parse(retrievedCities);
+    console.log("history", previousCities);
+    return previousCities;
+  }
+
 }
 
 function pullWeather(event) {
@@ -71,7 +74,6 @@ function getWeather(city) {
 
     var latitude = response.coord.lat;
     var longitude = response.coord.lon;
-    console.log(longitude, latitude);
     var oneCall = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=imperial&exclude=mintutely,hourly,alerts&cnt=47&appid=979c8157697c1c8cdda4b522d2ef9ef9`;
 
     $.ajax({
@@ -79,7 +81,6 @@ function getWeather(city) {
       method: 'GET'
     }).then(function (oneCallResults) {
       $(uvText).text("UV Index: ");
-      console.log("onecall", oneCallResults);
       $(uvIndex).text(oneCallResults.current.uvi);
       if (oneCallResults.current.uvi <= 2) {
         $(uvIndex).attr("class", "low");
@@ -99,7 +100,6 @@ function getWeather(city) {
     url: fiveDayForecast,
     method: 'GET'
   }).then(function (response) {
-    console.log("five day", response);
 
     // function to ensure 5 day forecast starts at next day noon
     var i = 0;
@@ -111,12 +111,11 @@ function getWeather(city) {
         i += j;
         break
       }
-    } 
+    }
 
     var allDays = ["day1", "day2", "day3", "day4", "day5"]
     // Somehow work logic in to make for loop run exactly five times while potentially having i start at 11
     for (i; i <= 39; i += 8) {
-      console.log(i);
       var dateOutlook = allDays[Math.floor(i / 8)];
       var dateElement = $("<li>");
       var dateElementText = moment(response.list[i].dt_txt).format('M/D/YYYY');
@@ -146,7 +145,7 @@ function getWeather(city) {
 //     searchHistory = localStorage.getItem("Searches");
 //   };
 //   for (i=0; i<searchHistory.length; i++) {
-    
+
 //   }
 // }
 
