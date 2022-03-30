@@ -12,14 +12,21 @@ buttonEl = $('.btn');
 var previousCities = [];
 setPrevious();
 
+// Create buttons based on stored historical searches.
+function showHistory() {
+  for (i=0; i<previousCities.length; i++) {
+    
+  }
+}
+
 function setPrevious() {
   retrievedCities = localStorage.getItem("Searches");
   if (retrievedCities != null) {
     previousCities = JSON.parse(retrievedCities);
     console.log("history", previousCities);
+    showHistory();
     return previousCities;
   }
-
 }
 
 function pullWeather(event) {
@@ -139,16 +146,6 @@ function getWeather(city) {
   })
 }
 
-// Create buttons based on stored historical searches.
-// function showHistory() {
-//   if (typeof (localStorage.getItem("Searches") != 'undefined')) {
-//     searchHistory = localStorage.getItem("Searches");
-//   };
-//   for (i=0; i<searchHistory.length; i++) {
-
-//   }
-// }
 
 
-// showHistory();
 buttonEl.on("click", pullWeather);
