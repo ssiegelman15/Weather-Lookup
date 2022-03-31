@@ -142,7 +142,7 @@ function getWeather(city) {
       var dateOutlook = allDays[Math.floor(i / 8)];
       var dateElement = $("<p>");
       var dateElementText = moment(response.list[i].dt_txt).format('M/D/YYYY');
-      dateElement.addClass("text-start");
+      dateElement.addClass("futureDateEl");
       dateElement.text(dateElementText);
       var tempElement = $("<p>");
       tempElement.text("Temp: " + response.list[i].main.temp + String.fromCharCode(176) + "F");
