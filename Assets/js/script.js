@@ -16,7 +16,7 @@ setPrevious();
 // Create buttons based on stored historical searches.
 function showHistory() {
   reverseHistory = previousCities.reverse();
-  for (i=0; i<previousCities.length; i++) {
+  for (i=0; i<8; i++) {
     var historyBtnEl = $("<button>");
     historyBtnEl.addClass("btn btn-primary btn-history mt-3 ml-4 w-100");
     var historyBtnText = reverseHistory[i];
