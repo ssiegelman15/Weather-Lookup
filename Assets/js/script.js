@@ -38,7 +38,6 @@ function setPrevious() {
 
 function pullWeather(event) {
   // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
-  
   event.preventDefault();
   clearPage();
   var citySearch = cityInput.val();
