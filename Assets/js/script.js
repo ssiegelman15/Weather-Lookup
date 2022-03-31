@@ -21,7 +21,6 @@ function showHistory() {
     var historyBtnText = previousCities[i];
     historyBtnEl.text(historyBtnText.substr(0,1).toUpperCase()+historyBtnText.substr(1));
     searchHistory.append(historyBtnEl);
-    // clearPage();
     historyBtnEl.on("click", pullHistoricalWeather);
   }
 }
@@ -52,8 +51,7 @@ function pullHistoricalWeather(event) {
   event.preventDefault();
   clearPage();
   var citySearch = event.target.innerText;
-  finalCityText = citySearch.trim()
-  // storeCity(finalCityText);
+  finalCityText = citySearch.trim();
   getWeather(finalCityText);
   showHistory();
 }
@@ -167,6 +165,4 @@ function getWeather(city) {
   })
 }
 
-
-// $('.btn-history').on("click", pullHistoricalWeather);
 buttonEl.on("click", pullWeather);
