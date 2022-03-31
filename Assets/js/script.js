@@ -60,7 +60,7 @@ function pullHistoricalWeather(event) {
 
 function storeCity(finalCityText) {
   // Add search result to global histroy var and store search result locally
-  previousCities.push(finalCityText);
+  previousCities.splice(0, 0, finalCityText);
   console.log("added", previousCities)
   localStorage.setItem("Searches", JSON.stringify(previousCities));
 }
