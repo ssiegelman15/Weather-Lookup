@@ -144,19 +144,21 @@ function getWeather(city) {
     // Somehow work logic in to make for loop run exactly five times while potentially having i start at 11
     for (i; i <= 39; i += 8) {
       var dateOutlook = allDays[Math.floor(i / 8)];
-      var dateElement = $("<li>");
+      var dateElement = $("<p>");
       var dateElementText = moment(response.list[i].dt_txt).format('M/D/YYYY');
+      dateElement.addClass("text-start");
       dateElement.text(dateElementText);
-      var tempElement = $("<li>");
+      var tempElement = $("<p>");
       tempElement.text("Temp: " + response.list[i].main.temp + String.fromCharCode(176) + "F");
-      var windElement = $("<li>");
+      var windElement = $("<p>");
       windElement.text("Wind: " + response.list[i].wind.speed + " MPH");
-      var humidityElement = $("<li>");
+      var humidityElement = $("<p>");
       humidityElement.text("Humidity: " + response.list[i].main.humidity + "%");
       var iconElement = $("<img>");
       var iconCode = response.list[i].weather[0].icon;
       var iconImage = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
       iconElement.attr("src", iconImage);
+      iconElement.addClass('d-flex justify-content-start');
       $("#" + dateOutlook).append(dateElement);
       $("#" + dateOutlook).append(iconElement);
       $("#" + dateOutlook).append(tempElement);

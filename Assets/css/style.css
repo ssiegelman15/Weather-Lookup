@@ -46,3 +46,16 @@
 .setBorder {
   border: 2px solid;
 }
+
+hr {
+  background-color: black;
+}
+
+li {
+  list-style-type: none;
+}
+
+.fiveDayCard {
+  background-color: #536878;
+  color: white;
+}
