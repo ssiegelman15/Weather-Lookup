@@ -15,7 +15,7 @@ setPrevious();
 
 // Create buttons based on stored historical searches.
 function showHistory() {
-  for (i=0; i<previousCities.length & i<8; i++) {
+  for (i=0; i<previousCities.length & i<7; i++) {
     var historyBtnEl = $("<button>");
     historyBtnEl.addClass("btn btn-primary btn-history mt-3 ml-4 w-100");
     var historyBtnText = previousCities[i];
@@ -38,17 +38,18 @@ function setPrevious() {
 
 function pullWeather(event) {
   // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
+  
   event.preventDefault();
   clearPage();
   var citySearch = cityInput.val();
-  finalCityText = citySearch.trim()
+  finalCityText = citySearch.trim();
   storeCity(finalCityText);
   getWeather(finalCityText);
   showHistory();
 }
 
 function pullHistoricalWeather(event) {
-  // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
+  // Sequence of events to clear page and display weather pulled from Open Weather Map API based on button clicked
   event.preventDefault();
   clearPage();
   var citySearch = event.target.innerText;
@@ -166,5 +167,5 @@ function getWeather(city) {
 }
 
 
-$('.btn-history').on("click", pullHistoricalWeather);
+// $('.btn-history').on("click", pullHistoricalWeather);
 buttonEl.on("click", pullWeather);

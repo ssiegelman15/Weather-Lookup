@@ -38,3 +38,11 @@
   background-color: lightgray;
   color: black;
 }
+
+#results {
+  padding: 10px 50px;
+}
+
+.setBorder {
+  border: 2px solid;
+}
