@@ -29,7 +29,6 @@ function setPrevious() {
   retrievedCities = localStorage.getItem("Searches");
   if (retrievedCities != null) {
     previousCities = JSON.parse(retrievedCities);
-    console.log("history", previousCities);
     showHistory();
     return previousCities;
   }
