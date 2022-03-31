@@ -15,13 +15,14 @@ setPrevious();
 
 // Create buttons based on stored historical searches.
 function showHistory() {
-  reverseHistory = previousCities.reverse();
-  for (i=0; i<8; i++) {
+  for (i=0; i<previousCities.length & i<8; i++) {
     var historyBtnEl = $("<button>");
     historyBtnEl.addClass("btn btn-primary btn-history mt-3 ml-4 w-100");
-    var historyBtnText = reverseHistory[i];
+    var historyBtnText = previousCities[i];
     historyBtnEl.text(historyBtnText.substr(0,1).toUpperCase()+historyBtnText.substr(1));
     searchHistory.append(historyBtnEl);
+    // clearPage();
+    historyBtnEl.on("click", pullHistoricalWeather);
   }
 }
 
@@ -42,6 +43,17 @@ function pullWeather(event) {
   var citySearch = cityInput.val();
   finalCityText = citySearch.trim()
   storeCity(finalCityText);
+  getWeather(finalCityText);
+  showHistory();
+}
+
+function pullHistoricalWeather(event) {
+  // Sequence of events to clear page, store search result, and display weather pulled from Open Weather Map API
+  event.preventDefault();
+  clearPage();
+  var citySearch = event.target.innerText;
+  finalCityText = citySearch.trim()
+  // storeCity(finalCityText);
   getWeather(finalCityText);
   showHistory();
 }
@@ -154,5 +166,5 @@ function getWeather(city) {
 }
 
 
-// $('.btn-history').on("click", pullHistoricalWeather);
+$('.btn-history').on("click", pullHistoricalWeather);
 buttonEl.on("click", pullWeather);

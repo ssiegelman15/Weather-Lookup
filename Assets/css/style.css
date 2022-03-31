@@ -33,3 +33,8 @@
   color: white;
   display: inline;
 }
+
+.btn-history {
+  background-color: lightgray;
+  color: black;
+}
